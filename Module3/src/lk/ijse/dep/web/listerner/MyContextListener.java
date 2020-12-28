@@ -22,6 +22,8 @@ public class MyContextListener implements ServletContextListener {
         bds.setInitialSize(5);
         bds.setMaxTotal(5);
         System.out.println("Context is being begun");
+
+
         ServletContext servletContext = sce.getServletContext();
         servletContext.setAttribute("cp",bds);
     }
@@ -30,7 +32,6 @@ public class MyContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         System.out.println("Context is being destroyed");
         BasicDataSource cp= (BasicDataSource) sce.getServletContext().getAttribute("cp");
-
         try {
             cp.close();
         } catch (SQLException throwables) {

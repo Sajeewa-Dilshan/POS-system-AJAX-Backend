@@ -160,7 +160,8 @@ System.out.println(json);*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String id= request.getParameter("id");
-        System.out.println(request.getParameter("id"));
+        String d= request.getParameter("d");
+        System.out.println("id "+id+"d "+d);
 
         BasicDataSource cp = (BasicDataSource) getServletContext().getAttribute("cp");
         response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
