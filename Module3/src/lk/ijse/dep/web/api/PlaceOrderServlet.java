@@ -33,30 +33,22 @@ public class PlaceOrderServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String code= request.getParameter("code");
         String id= request.getParameter("id");
 
+        System.out.println("zfsdfgfg");
         response.setContentType("application/json");
         response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
         BasicDataSource cp= (BasicDataSource) getServletContext().getAttribute("cp");
 
         try(Connection connection=cp.getConnection();) {
             Jsonb jsonb = JsonbBuilder.create();
+
+
             OrderedItem orderedItem=jsonb.fromJson(request.getReader(),OrderedItem.class);
 
-
-       /*     if(code ==null || id==null){
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                return;
-            }*/
-
-            System.out.println("dsbdsfgdf");
-
-            System.out.println(orderedItem.getItems().size());
-            orderedItem.getItems().forEach((k,v)->{
-                System.out.println("key " +k +"value "+v);
-            });
-
+            System.out.println(orderedItem.getItem());
+            System.out.println(orderedItem.getQty());
 
 
 
@@ -68,14 +60,14 @@ public class PlaceOrderServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String id=request.getParameter("id");
         String code=request.getParameter("code");
         String qty=request.getParameter("qty");
 
         BasicDataSource cp= (BasicDataSource) getServletContext().getAttribute("cp");
         response.setContentType("application/json");
 
-
+        response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
         System.out.println("code is "+code);
         System.out.println("qty is "+qty);
         try(Connection connection = cp.getConnection();
@@ -85,14 +77,18 @@ public class PlaceOrderServlet extends HttpServlet {
             Jsonb jsonb=JsonbBuilder.create();
             ResultSet rst= pstm.executeQuery();
 
+
+            PreparedStatement pstm1 = connection.prepareStatement("SELECT * FROM Item WHERE code=\""+code+"\"");
+
+
             while(rst.next()){
                 String description =rst.getString(2);
                 Double unitPrice =rst.getDouble(3);
                 Integer qtyOnHand =rst.getInt(4);
-                if(Integer.parseInt(qty)>qtyOnHand){
+          /*      if(Integer.parseInt(qty)>qtyOnHand){
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     return;
-                }
+                }*/
 
                 out.println(jsonb.toJson(new Item(code,description,String.valueOf(unitPrice),String.valueOf(qtyOnHand))));
 
