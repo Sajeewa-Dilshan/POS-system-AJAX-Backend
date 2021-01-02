@@ -1,34 +1,44 @@
 package lk.ijse.dep.web.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class OrderedItem {
 
-   private List<String> item;
-   private List<String> qty;
+   private ArrayList<String> item;
+   private ArrayList<String> qty;
+   private double total;
 
     public OrderedItem() {
     }
 
-    public OrderedItem(List<String> item, List<String> qty) {
+    public OrderedItem(ArrayList<String> item, ArrayList<String> qty, double total) {
         this.setItem(item);
         this.setQty(qty);
+        this.setTotal(total);
     }
 
 
-    public List<String> getItem() {
+    public ArrayList<String> getItem() {
         return item;
     }
 
-    public void setItem(List<String> item) {
+    public void setItem(ArrayList<String> item) {
         this.item = item;
     }
 
-    public List<String> getQty() {
+    public ArrayList<String> getQty() {
         return qty;
     }
 
-    public void setQty(List<String> qty) {
+    public void setQty(ArrayList<String> qty) {
         this.qty = qty;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }
