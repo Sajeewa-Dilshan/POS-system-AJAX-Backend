@@ -1,51 +1,84 @@
 package lk.ijse.dep.web.model;
 
+import java.util.ArrayList;
+
 public class OrderDetail {
 
-    private String orderId;
-    private String itemCode;
-    private Integer qty;
-    private Double unitPrice;
-
-    public OrderDetail(String orderId, String itemCode, Integer qty, Double unitPrice) {
-        this.orderId = orderId;
-        this.itemCode = itemCode;
-        this.qty = qty;
-        this.unitPrice = unitPrice;
-    }
+    private String cusId;
+   private ArrayList<String> itemCode;
+   private ArrayList<String> des;
+   private ArrayList<Integer> qty;
+   private ArrayList<Double> unitPrice;
+   private Double totalPrice;
+   private String date;
 
     public OrderDetail() {
     }
 
-    public String getOrderId() {
-        return orderId;
+    public OrderDetail(String cusId, ArrayList<String> itemCode, ArrayList<String> des, ArrayList<Integer> qty, ArrayList<Double> unitPrice, Double totalPrice, String date) {
+        this.setCusId(cusId);
+        this.setItemCode(itemCode);
+        this.setDes(des);
+        this.setQty(qty);
+        this.setUnitPrice(unitPrice);
+        this.setTotalPrice(totalPrice);
+        this.setDate(date);
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+
+    public String getCusId() {
+        return cusId;
     }
 
-    public String getItemCode() {
+    public void setCusId(String cusId) {
+        this.cusId = cusId;
+    }
+
+    public ArrayList<String> getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(String itemCode) {
+    public void setItemCode(ArrayList<String> itemCode) {
         this.itemCode = itemCode;
     }
 
-    public Integer getQty() {
+    public ArrayList<String> getDes() {
+        return des;
+    }
+
+    public void setDes(ArrayList<String> des) {
+        this.des = des;
+    }
+
+    public ArrayList<Integer> getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(ArrayList<Integer> qty) {
         this.qty = qty;
     }
 
-    public Double getUnitPrice() {
+    public ArrayList<Double> getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(ArrayList<Double> unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

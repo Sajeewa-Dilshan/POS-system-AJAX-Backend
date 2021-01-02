@@ -40,10 +40,6 @@ public class PlaceOrderServlet extends HttpServlet {
 
         String total= request.getParameter("total");
 
-
-
-
-
         response.setContentType("application/json");
          response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
@@ -58,7 +54,6 @@ public class PlaceOrderServlet extends HttpServlet {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-
 
             OrderedItem orderedItem=jsonb.fromJson(request.getReader(),OrderedItem.class);
 
@@ -145,6 +140,19 @@ public class PlaceOrderServlet extends HttpServlet {
                 System.out.println(4);
 
             }
+
+            for (int i=0; i<orderedItem.getItem().size();i++) {
+                PreparedStatement pstm6 = connection.prepareStatement("SELECT qtyOnHand from Item where code=?");
+                pstm6.setObject(1, orderedItem.getItem().get(i));
+                ResultSet rst6=pstm6.executeQuery();
+                
+                PreparedStatement pstm7 = connection.prepareStatement("UPDATE Item SET qtyOnHand=? where code=?");
+
+
+            }
+
+
+
             out.println(jsonb.toJson("Saved Order"));
             System.out.println(5);
 
