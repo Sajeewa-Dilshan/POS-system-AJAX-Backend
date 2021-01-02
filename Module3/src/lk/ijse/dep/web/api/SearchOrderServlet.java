@@ -41,6 +41,8 @@ public class SearchOrderServlet extends HttpServlet {
         try(Connection connection = cp.getConnection();
             PrintWriter out = response.getWriter();
         ){
+            Boolean success=false;
+
             Jsonb jsonb = JsonbBuilder.create();
             System.out.println(id);
             PreparedStatement pstm1= connection.prepareStatement("SELECT  * FROM OrderDetailsPOS where OrderId=?");
@@ -60,6 +62,7 @@ public class SearchOrderServlet extends HttpServlet {
                    ResultSet rst3= pstm3.executeQuery();
                    while (rst3.next()){
                        des.add(rst3.getString(1));
+
                    }
                     qty.add(rst1.getInt(3));
 
@@ -81,8 +84,14 @@ public class SearchOrderServlet extends HttpServlet {
                 date=rst2.getString(2);
                 cusId=rst2.getString(3);
                 totalPrice=rst2.getDouble(4);
+                success=true;
             }
 
+            if(!success){
+                out.println(jsonb.toJson("Enter a valid order Id"));
+                System.out.println("unsucccess");
+                return;
+            }
 
 
             out.println(jsonb.toJson(new OrderDetail(cusId,itemCode,des,qty,unitPrice,totalPrice,date)));
@@ -99,6 +108,7 @@ public class SearchOrderServlet extends HttpServlet {
 
         String ordId= req.getParameter("ordId");
 
+        System.out.println(ordId);
         resp.setContentType("application/json");
 
         resp.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -113,18 +123,19 @@ public class SearchOrderServlet extends HttpServlet {
 
             Integer rst1= pstm1.executeUpdate();
             System.out.println("rst1 "+rst1);
-            if(rst1==1){
-                System.out.println("rst1 "+rst1);
+            if(rst1==0){
+                out.println(jsonb.toJson("unsuccess"));
+                return;
             }
 
             PreparedStatement pstm2= connection.prepareStatement("DELETE from OrderPOS where oid=?");
             pstm2.setObject(1,ordId);
             Integer rst2=pstm2.executeUpdate();
             System.out.println("rst1 "+rst2);
-            if(rst2==1){
-
+            if(rst2==0){
+                out.println(jsonb.toJson("unsuccess"));
+                return;
             }
-
 
 
             out.println(jsonb.toJson("deleted"));

@@ -145,9 +145,15 @@ public class PlaceOrderServlet extends HttpServlet {
                 PreparedStatement pstm6 = connection.prepareStatement("SELECT qtyOnHand from Item where code=?");
                 pstm6.setObject(1, orderedItem.getItem().get(i));
                 ResultSet rst6=pstm6.executeQuery();
-                
-                PreparedStatement pstm7 = connection.prepareStatement("UPDATE Item SET qtyOnHand=? where code=?");
+                int currentQtyOnHand=0;
+                while (rst6.next()){
+                     currentQtyOnHand= rst6.getInt(1);
+                }
 
+                PreparedStatement pstm7 = connection.prepareStatement("UPDATE Item SET qtyOnHand=? where code=?");
+                pstm7.setObject(1,currentQtyOnHand-Integer.parseInt(orderedItem.getQty().get(i)));
+                pstm7.setObject(2,orderedItem.getItem().get(i));
+                pstm7.executeUpdate();
 
             }
 
