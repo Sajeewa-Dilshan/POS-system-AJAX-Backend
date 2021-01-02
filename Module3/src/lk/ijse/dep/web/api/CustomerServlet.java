@@ -89,23 +89,12 @@ public class CustomerServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //  BufferedReader br = request.getReader();
-
-      //  String line= null;
-      //  String json="";
-
-       /* while((line=br.readLine())!=null){
-            json+=line;
-        }
-System.out.println(json);*/
-
 
         response.setContentType("application/json");
 
         response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
 
-        //Customer customer=jsonb.fromJson(json, Customer.class);
 
 
         BasicDataSource cp= (BasicDataSource) getServletContext().getAttribute("cp");
@@ -168,13 +157,11 @@ System.out.println(json);*/
         System.out.println(cp.getNumActive());
         System.out.println(cp.getNumIdle());
         response.setContentType("application/json");
-       // response.setContentType("text/html");
+
 
 
         try (PrintWriter out = response.getWriter()) {
-            //  out.println(getServletContext().getAttribute("abc"));
-         /*   out.println("<div>");
-            out.println("<h1>Sajeewa Module 3</h1>");*/
+
 
             try {
                 try {
@@ -193,50 +180,22 @@ System.out.println(json);*/
 
 
 
-               /* out.println("<div>");
-                out.println("<h1>Sajeewa Module 3</h1>")*/;
-                //out.println("<table style='border-collapse: collapse; border:1px solid black;' >");
-
-                //out.println("<customers >");
-
-               // String json="[";
-
                 List<Customer> customerList=new ArrayList<>();
 
 
-             /*   out.println("<tr><th>Id</th>" +
-                        "<th>Name</th></tr>");
-                out.println("<tbody>");*/
+
                 while (rst.next()) {
                     id = rst.getString(1);
                     String name = rst.getString(2);
                     String address = rst.getString(3);
-                 /*   out.println("<tr>" + "<td>" + id + "</td>"
-                            + "<td>" + name + "</td></tr>");*/
 
-                    /*out.println("<customer>"+
-                            "<id>"+id+"</id>"+
-                            "<name>"+name+"</name>"+
-                            "<address>"+address+"</address>"+
-                            "</customer>");*/
 
-                 /*   json+=("{"+
-                            "\"id\":\""+id+"\","+
-                            "\"name\":\""+name+"\","+
-                            "\"address\":\""+address+"\""+"},"
-
-                    );*/
 
                     customerList.add(new Customer(id,name,address));
 
                 }
 
-                //json=json.substring(0,json.length()-1);
-//                out.println("</tbody></table>");
-//                out.println("</div>");
-               // out.println("</customers>");
-                //json=json+"]";
-               // out.println(json);
+
 
                 if(id!=null && customerList.isEmpty()){
                     //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -257,7 +216,7 @@ System.out.println(json);*/
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       // resp.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
 
         String id =req.getParameter("id");
 

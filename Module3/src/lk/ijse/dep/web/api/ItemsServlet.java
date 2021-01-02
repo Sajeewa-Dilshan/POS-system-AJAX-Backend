@@ -249,55 +249,5 @@ public class ItemsServlet extends HttpServlet {
     }
 
 
-   /* protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-          BasicDataSource cp = (BasicDataSource) getServletContext().getAttribute("cp");
-          response.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
-          cp.getNumIdle();
-          cp.getNumActive();
-          response.setContentType("text/html");
 
-          try(PrintWriter out =response.getWriter()){
-
-              out.println("<div>");
-              out.println("<h1>Sajeewa Dilshan Items</h1>");
-
-              try {
-                  Class.forName("com.mysql.cj.jdbc.Driver");
-                  Connection connection=cp.getConnection();
-                  Statement stm=connection.createStatement();
-                  ResultSet rst = stm.executeQuery("SELECT * FROM Item");
-
-                  out.println("<table style='border-collapse: collapse; border:1px solid black;' >");
-                  out.println("<tr>" +
-                          "<th>code</th>" +
-                          "<th>Description</th>" +
-                          "<th>Unit Price</th>" +
-                          "<th>Qty On hand</th>" +
-                          "</tr>");
-                  out.println("<tbody>");
-
-
-                  while(rst.next()){
-                      String code=rst.getString(1);
-                      String description=rst.getString(2);
-                      Integer unitPrice=rst.getInt(3);
-                      Integer qtyOnHand=rst.getInt(4);
-                     out.println("<tr><td>"+code+"</td>"+
-                              "<td>"+description+"</td>"+
-                              "<td>"+unitPrice+"</td>"+
-                              "<td>"+qtyOnHand+"</td></tr>");
-                  }
-
-                  connection.close();
-                  out.println("</tbody></table>");
-                  out.println("</div>");
-
-
-
-
-              } catch (ClassNotFoundException | SQLException e) {
-                  e.printStackTrace();
-              }
-          }
-    }*/
 }
